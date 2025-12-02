@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #550000 0%, #6e1d1d 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* Registration Page Styles */
+        
+        .registration-page {
+            background: rgba(255, 71, 71, 0);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            text-align: center;
+        }
+        
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: #f0f0f0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .input-box {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff3c00;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #ffd382;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 14px;
+            display: none;
+        }
+        /* Main Page Styles */
+        
+        .main-page {
+            display: none;
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff000000;
+        }
+        
+        .username-display {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .speaker-btn {
+            width: 50px;
+            height: 50px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 0;
+        }
+        
+        .speaker-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+        
+        .speaker-btn:hover {
+            opacity: 0.7;
+        }
+        
+        .content-area {
+            min-height: 300px;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .navigation-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #ffffff00;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 30px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+        
+        .nav-item:hover {
+            transform: translateY(-5px);
+            background: #e4d72688;
+        }
+        
+        .nav-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        
+        .nav-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .nav-text {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Registration Page -->
+    <div class="registration-page" id="registrationPage">
+        <div class="logo-container">
+            <img src="https://s6.uupload.ir/files/chatgpt_image_dec_1,_2025,_04_58_37_pm_119f.png" alt="Logo">
+        </div>
+        <h1>Registration</h1>
+        <input type="text" class="input-box" id="usernameInput" placeholder="Enter your username" maxlength="50">
+        <button class="submit-btn" id="submitBtn">Confirm Username</button>
+        <div class="error-message" id="errorMessage">
+            Username must be at least 7 characters long!
+        </div>
+    </div>
+
+    <!-- Main Page -->
+    <div class="main-page" id="mainPage">
+        <div class="header">
+            <div class="username-display" id="usernameDisplay">Welcome</div>
+            <button class="speaker-btn" id="speakerBtn">
+                <img src="speaker-on.png" alt="Speaker" id="speakerIcon">
+            </button>
+        </div>
+
+        <div class="content-area" id="contentArea">
+            Welcome to the main page! Select an option below to get started.
+        </div>
+
+        <div class="navigation-bar">
+            <div class="nav-item" onclick="navigateTo('home')">
+                <div class="nav-icon">
+                    <img src="home-icon.png" alt="Home">
+                </div>
+                <div class="nav-text">Home</div>
+            </div>
+            <div class="nav-item" onclick="navigateTo('play')">
+                <div class="nav-icon">
+                    <img src="play-icon.png" alt="Play">
+                </div>
+                <div class="nav-text">Play</div>
+            </div>
+            <div class="nav-item" onclick="navigateTo('tasks')">
+                <div class="nav-icon">
+                    <img src="tasks-icon.png" alt="Tasks">
+                </div>
+                <div class="nav-text">Tasks</div>
+            </div>
+            <div class="nav-item" onclick="navigateTo('friend')">
+                <div class="nav-icon">
+                    <img src="friend-icon.png" alt="Friend">
+                </div>
+                <div class="nav-text">Friend</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden audio element that will play background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // This stores whether the music is currently playing or muted
+        let isMusicPlaying = false;
+
+        // Get references to all the HTML elements we'll need to work with
+        const registrationPage = document.getElementById('registrationPage');
+        const mainPage = document.getElementById('mainPage');
+        const usernameInput = document.getElementById('usernameInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const speakerBtn = document.getElementById('speakerBtn');
+        const speakerIcon = document.getElementById('speakerIcon');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const contentArea = document.getElementById('contentArea');
+
+        // This function handles the username submission
+        submitBtn.addEventListener('click', function() {
+            const username = usernameInput.value.trim();
+
+            // Check if username meets the 7 character requirement
+            if (username.length < 7) {
+                errorMessage.style.display = 'block';
+                usernameInput.style.borderColor = '#e74c3c';
+                return;
+            }
+
+            // If validation passes, hide registration and show main page
+            errorMessage.style.display = 'none';
+            registrationPage.style.display = 'none';
+            mainPage.style.display = 'block';
+            usernameDisplay.textContent = `Welcome, ${username}!`;
+
+            // Start playing the background music automatically
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+            }).catch(error => {
+                // Some browsers require user interaction before playing audio
+                console.log('Auto-play prevented. Click speaker to start music.');
+            });
+        });
+
+        // Allow pressing Enter key to submit the form
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitBtn.click();
+            }
+        });
+
+        // Clear error message when user starts typing again
+        usernameInput.addEventListener('input', function() {
+            errorMessage.style.display = 'none';
+            usernameInput.style.borderColor = '#ddd';
+        });
+
+        // This handles the speaker button to toggle music on/off
+        speakerBtn.addEventListener('click', function() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                speakerIcon.src = 'speaker-off.png';
+                isMusicPlaying = false;
+            } else {
+                backgroundMusic.play();
+                speakerIcon.src = 'speaker-on.png';
+                isMusicPlaying = true;
+            }
+        });
+
+        // This function handles navigation between different sections
+        function navigateTo(section) {
+            switch (section) {
+                case 'home':
+                    contentArea.innerHTML = '<h2>Home Page</h2><p>You are on the home page. This is your starting point.</p>';
+                    break;
+                case 'play':
+                    contentArea.innerHTML = '<h2>Play Section</h2><p>Ready to play? Start your adventure here!</p>';
+                    break;
+                case 'tasks':
+                    contentArea.innerHTML = '<h2>Tasks</h2><p>Here you can view and manage your tasks.</p>';
+                    break;
+                case 'friend':
+                    contentArea.innerHTML = '<h2>Friends</h2><p>Connect with your friends and see what they are up to.</p>';
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>
